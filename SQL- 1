@@ -1,0 +1,70 @@
+Name: Rupali Ajaykumar Singh
+Company: CODTECH IT SOLUTIONS
+ID: CT08DS5413
+Domain: SQL
+Duration: Jul to August 2024
+Mentor: Muzammil Ahmed
+
+Overview of the Project
+
+Project: Library Management System Database
+
+Project Overview
+The Library Management System Database is a simple database project designed to manage a library's book inventory, members, and borrow/return transactions. This project serves as a practical exercise for learning basic SQL commands and database design principles. It provides a foundation for understanding how to create, manipulate, and query a relational database.
+
+Features
+Book Management: Track books available in the library, including details like title, author, published year, genre, and available copies.
+Member Management: Store information about library members, including their names, contact details, and membership dates.
+Transaction Tracking: Record borrow and return transactions, linking members to the books they borrow.
+
+SQL Commands
+
+1. Creation of Tables
+CREATE TABLE Books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    published_year YEAR NOT NULL,
+    genre VARCHAR(100),
+    available_copies INT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE Members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone_number VARCHAR(15),
+    membership_date DATE NOT NULL
+);
+
+CREATE TABLE Transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT,
+    book_id INT,
+    transaction_date DATE NOT NULL,
+    return_date DATE,
+    FOREIGN KEY (member_id) REFERENCES Members(member_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+2. Insertion of Data
+INSERT INTO Books (title, author, published_year, genre, available_copies) VALUES
+('To Kill a Mockingbird', 'Harper Lee', 1960, 'Fiction', 3),
+('1984', 'George Orwell', 1949, 'Dystopian', 2),
+('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Classic', 5);
+
+INSERT INTO Members (name, email, phone_number, membership_date) VALUES
+('John Doe', 'john.doe@example.com', '1234567890', '2023-01-15'),
+('Jane Smith', 'jane.smith@example.com', '0987654321', '2023-02-20');
+
+INSERT INTO Transactions (member_id, book_id, transaction_date) VALUES
+(1, 1, '2023-03-01'),  
+(2, 2, '2023-03-02');  
+
+3. Updation of Data
+UPDATE Members SET phone_number = '1112223333' WHERE member_id = 1;
+
+4. Deletion of Data
+DELETE FROM Members WHERE member_id = 2;
+
+DELETE FROM Books WHERE book_id = 3;  -- Deletes "The Great Gatsby"
